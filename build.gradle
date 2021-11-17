@@ -3,10 +3,11 @@ buildscript {
         compose_version = '1.1.0-beta02'
         kotlin_coroutines = '1.5.2'
         dagger_hilt = '2.39.1'
-        dagger_components = '1.0.0-alpha3'
+        dagger_components = '1.0.0-alpha03'
         google_gson = '2.8.8'
         retrofit_dep = "2.9.0"
-
+        compose_paging = "1.0.0-alpha14"
+        room_dep = "2.3.0"
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.39.1"
