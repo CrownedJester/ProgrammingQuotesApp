@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.soft.crownedjester.programmingquotesapp.common.Resource
 import com.soft.crownedjester.programmingquotesapp.domain.use_case.get_quotes.GetQuotes
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -19,6 +21,9 @@ class QuotesViewModel @Inject constructor(
 
     private val _state = mutableStateOf(QuotesState())
     val state: State<QuotesState> = _state
+
+    private val _revealedQuotesIdsList = MutableStateFlow(listOf<String>())
+    val revealedQuotesIdsList: StateFlow<List<String>> = _revealedQuotesIdsList
 
     init {
         getQuotes()
@@ -46,5 +51,19 @@ class QuotesViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun onItemExpanded(cardId: String) {
+        if (_revealedQuotesIdsList.value.contains(cardId)) return
+        _revealedQuotesIdsList.value = _revealedQuotesIdsList.value.toMutableList().also { list ->
+            list.add(cardId)
+        }
+    }
+
+    fun onItemCollapsed(cardId: String) {
+        if (!_revealedQuotesIdsList.value.contains(cardId)) return
+        _revealedQuotesIdsList.value = _revealedQuotesIdsList.value.toMutableList().also { list ->
+            list.remove(cardId)
+        }
     }
 }
