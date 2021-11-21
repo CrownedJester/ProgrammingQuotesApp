@@ -3,6 +3,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-android'
 }
 
 android {
@@ -97,4 +98,6 @@ dependencies {
 
     //Paging
     implementation "androidx.paging:paging-compose:$compose_paging"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
