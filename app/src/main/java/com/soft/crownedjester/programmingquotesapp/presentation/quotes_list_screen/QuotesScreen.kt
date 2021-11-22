@@ -2,24 +2,24 @@ package com.soft.crownedjester.programmingquotesapp.presentation.quotes_list_scr
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.soft.crownedjester.programmingquotesapp.presentation.quotes_list_screen.components.QuoteItem
+import com.soft.crownedjester.programmingquotesapp.presentation.quotes_list_screen.components.ActionsRow
+import com.soft.crownedjester.programmingquotesapp.presentation.quotes_list_screen.components.DraggableQuoteCard
+import com.soft.crownedjester.programmingquotesapp.presentation.util.dp
 
 const val ACTION_ITEM_SIZE = 56
 const val CARD_HEIGHT = 56
-const val CARD_OFFSET = 168f
+const val CARD_OFFSET = 300f
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
@@ -27,10 +27,9 @@ fun QuotesScreen(
     modifier: Modifier = Modifier,
     quotesViewModel: QuotesViewModel = hiltViewModel()
 ) {
-    var count = 0
     val state = quotesViewModel.state.value
     Log.d("QuotesScreen:: ", state.error)
-
+    val revealedCardsIds = quotesViewModel.revealedQuotesIdsList.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,29 +44,32 @@ fun QuotesScreen(
                 .fillMaxSize()
                 .padding(start = 4.dp, end = 2.dp, top = 10.dp)
         ) {
-            items(state.data!!) { quote ->
-//                Box(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                ) {
-//                    ActionsRow(
-//                        actionIconSize = ACTION_ITEM_SIZE.dp,
-//                        onRemoveFavorite = { /*TODO*/ },
-//                        onShare = { /*TODO*/ },
-//                        onFavorite = {/*TODO*/ }
-//                    )
+            itemsIndexed(state.data!!) { count, quote ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    if (count < 10) {
+                        ActionsRow(
+                            actionIconSize = ACTION_ITEM_SIZE.dp,
+                            onRemoveFavorite = { /*TODO*/ },
+                            onShare = { /*TODO*/ },
+                            onFavorite = {/*TODO*/ }
+                        )
 
 
-                QuoteItem(quote = quote, count = count++)
-//                    DraggableSimpleCard(
-//                        quote = quote,
-//                        isRevealed = quotesViewModel.revealedQuotesIdsList.value.contains(quote.id),
-//                        cardHeight = CARD_HEIGHT.dp,
-//                        cardOffset = CARD_OFFSET,
-//                        onExpand = { quotesViewModel.onItemExpanded(quote.id) },
-//                        onCollapse = { quotesViewModel.onItemCollapsed(quote.id) }
-//                    )
-//                }
+                        DraggableQuoteCard(
+                            quote = quote,
+                            isRevealed = revealedCardsIds.value.contains(quote.id),
+                            count = count,
+                            cardHeight = CARD_HEIGHT.dp,
+                            cardOffset = CARD_OFFSET.dp(),
+                            onExpand = { quotesViewModel.onItemExpanded(quote.id) },
+                            onCollapse = { quotesViewModel.onItemCollapsed(quote.id) }
+                        )
+                    }
+
+                }
             }
         }
     }
