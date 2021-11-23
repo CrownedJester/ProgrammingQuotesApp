@@ -47,6 +47,8 @@ fun QuotesScreen(
         ) {
             itemsIndexed(state.data!!) { count, quote ->
                 QuoteItemWithActions(
+                    modifier = Modifier
+                        .fillMaxWidth(),
                     quote = quote,
                     actionIconSize = ACTION_ITEM_SIZE.dp,
                     isRevealed = revealedCardsIds.value.contains(quote.id),

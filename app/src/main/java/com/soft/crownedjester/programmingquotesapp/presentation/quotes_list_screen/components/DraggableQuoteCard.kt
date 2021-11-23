@@ -16,10 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.soft.crownedjester.programmingquotesapp.data.remote.dto.QuotesDto
+import com.soft.crownedjester.programmingquotesapp.domain.model.Quote
+import com.soft.crownedjester.programmingquotesapp.presentation.ui.theme.Vanilla
 import kotlin.math.roundToInt
 
 const val DURATION_ANIMATION = 500
@@ -29,7 +29,7 @@ const val MIN_DRAG_AMOUNT = 6
 @Composable
 fun DraggableQuoteCard(
     modifier: Modifier = Modifier,
-    quote: QuotesDto,
+    quote: Quote,
     count: Int,
     isRevealed: Boolean,
     cardOffset: Float,
@@ -54,14 +54,12 @@ fun DraggableQuoteCard(
 
     val transition = updateTransition(targetState = transitionState, "cardTransition")
 
-    val cardCollapsedBackgroundColor = Color(0xFF9C9999)
-    val cardExpandedBackgroundColor = Color(0xFF558B2F)
 
     val cardBgColor by transition.animateColor(
         label = "cardBgColorTransition",
         transitionSpec = { tween(durationMillis = DURATION_ANIMATION) },
         targetValueByState = {
-            if (isRevealed) cardExpandedBackgroundColor else cardCollapsedBackgroundColor
+            if (isRevealed) Vanilla else Color(quote.color)//first value if expanded, second if collapsed
         }
     )
 

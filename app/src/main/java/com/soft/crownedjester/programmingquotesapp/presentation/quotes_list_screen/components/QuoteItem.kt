@@ -9,10 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
-import com.soft.crownedjester.programmingquotesapp.data.remote.dto.QuotesDto
+import com.soft.crownedjester.programmingquotesapp.domain.model.Quote
 
 @Composable
-fun QuoteItem(quote: QuotesDto, count: Int) {
+fun QuoteItem(quote: Quote, count: Int) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

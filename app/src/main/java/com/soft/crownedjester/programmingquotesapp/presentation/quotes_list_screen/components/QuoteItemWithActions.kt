@@ -1,18 +1,20 @@
 package com.soft.crownedjester.programmingquotesapp.presentation.quotes_list_screen.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.soft.crownedjester.programmingquotesapp.data.remote.dto.QuotesDto
+import com.soft.crownedjester.programmingquotesapp.domain.model.Quote
 
 @Composable
 fun QuoteItemWithActions(
     modifier: Modifier = Modifier,
-    quote: QuotesDto,
+    quote: Quote,
     actionIconSize: Dp = 24.dp,
     isRevealed: Boolean,
     cardOffset: Float,
@@ -23,13 +25,13 @@ fun QuoteItemWithActions(
     onCollapse: () -> Unit
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
     ) {
         ActionsRow(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.Center),
+                .align(Alignment.Center)
+                .background(MaterialTheme.colors.background),
             actionIconSize = actionIconSize,
             onShare = { onShare() },
             onFavoriteBtnClick = { onFavoriteBtnClick() }
