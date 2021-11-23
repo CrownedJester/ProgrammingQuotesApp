@@ -26,7 +26,7 @@ fun QuoteItem(quote: QuotesDto, count: Int) {
             style = MaterialTheme.typography.body1
         )
         Text(
-            text = "\t${quote.quote}",
+            text = "\t\t${quote.quote}",
             style = MaterialTheme.typography.body2,
             fontStyle = FontStyle.Italic,
             color = Color(0x80000000)
@@ -39,7 +39,9 @@ fun QuoteItem(quote: QuotesDto, count: Int) {
                 .fillMaxWidth()
         ) {
             Text(
-                modifier = Modifier.align(Alignment.TopEnd),
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(bottom = 4.dp),
                 text = quote.author,
                 style = MaterialTheme.typography.body2,
                 fontStyle = FontStyle.Normal

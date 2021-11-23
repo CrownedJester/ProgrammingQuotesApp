@@ -12,12 +12,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.consumePositionChange
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
@@ -33,7 +30,6 @@ const val MIN_DRAG_AMOUNT = 6
 fun DraggableQuoteCard(
     modifier: Modifier = Modifier,
     quote: QuotesDto,
-    cardHeight: Dp,
     count: Int,
     isRevealed: Boolean,
     cardOffset: Float,
@@ -60,6 +56,7 @@ fun DraggableQuoteCard(
 
     val cardCollapsedBackgroundColor = Color(0xFF9C9999)
     val cardExpandedBackgroundColor = Color(0xFF558B2F)
+
     val cardBgColor by transition.animateColor(
         label = "cardBgColorTransition",
         transitionSpec = { tween(durationMillis = DURATION_ANIMATION) },
@@ -77,7 +74,7 @@ fun DraggableQuoteCard(
     val cardElevation by transition.animateDp(
         label = "cardElevation",
         transitionSpec = { tween(durationMillis = DURATION_ANIMATION) },
-        targetValueByState = { if (isRevealed) 80.dp else 2.dp }
+        targetValueByState = { if (isRevealed) 40.dp else 2.dp }
     )
 
     Card(
