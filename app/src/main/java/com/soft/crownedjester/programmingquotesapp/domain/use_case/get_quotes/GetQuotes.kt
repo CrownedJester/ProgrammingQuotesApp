@@ -1,10 +1,9 @@
 package com.soft.crownedjester.programmingquotesapp.domain.use_case.get_quotes
 
 import com.soft.crownedjester.programmingquotesapp.common.Resource
-import com.soft.crownedjester.programmingquotesapp.data.remote.dto.QuotesDto
 import com.soft.crownedjester.programmingquotesapp.data.remote.dto.toQuote
 import com.soft.crownedjester.programmingquotesapp.domain.model.Quote
-import com.soft.crownedjester.programmingquotesapp.domain.repository.IQuotesRepository
+import com.soft.crownedjester.programmingquotesapp.domain.repository.QuotesApiServicesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -12,7 +11,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 class GetQuotes @Inject constructor(
-    private val repository: IQuotesRepository
+    private val repository: QuotesApiServicesRepository
 ) {
 
     operator fun invoke(): Flow<Resource<List<Quote>>> = flow {

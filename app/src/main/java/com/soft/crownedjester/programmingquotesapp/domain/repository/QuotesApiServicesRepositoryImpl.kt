@@ -3,7 +3,7 @@ package com.soft.crownedjester.programmingquotesapp.domain.repository
 import com.soft.crownedjester.programmingquotesapp.data.remote.IProgrammingQuotesApi
 import com.soft.crownedjester.programmingquotesapp.data.remote.dto.QuotesDto
 
-class QuotesRepositoryImpl(val api: IProgrammingQuotesApi) : IQuotesRepository {
+class QuotesApiServicesRepositoryImpl(val api: IProgrammingQuotesApi) : QuotesApiServicesRepository {
 
     override suspend fun getQuotes(): List<QuotesDto> {
         return api.getQuotes()

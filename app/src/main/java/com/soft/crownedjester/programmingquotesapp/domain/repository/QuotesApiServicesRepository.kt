@@ -2,7 +2,7 @@ package com.soft.crownedjester.programmingquotesapp.domain.repository
 
 import com.soft.crownedjester.programmingquotesapp.data.remote.dto.QuotesDto
 
-interface IQuotesRepository {
+interface QuotesApiServicesRepository {
 
     suspend fun getQuotes(): List<QuotesDto>
 
