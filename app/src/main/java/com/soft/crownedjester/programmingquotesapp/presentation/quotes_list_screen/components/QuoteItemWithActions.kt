@@ -33,6 +33,7 @@ fun QuoteItemWithActions(
                 .align(Alignment.Center)
                 .background(MaterialTheme.colors.background),
             actionIconSize = actionIconSize,
+            isFavorite = quote.isFavorite,
             onShare = { onShare() },
             onFavoriteBtnClick = { onFavoriteBtnClick() }
         )
