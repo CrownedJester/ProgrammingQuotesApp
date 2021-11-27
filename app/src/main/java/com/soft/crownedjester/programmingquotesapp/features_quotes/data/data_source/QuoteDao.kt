@@ -10,7 +10,7 @@ interface QuoteDao {
     @Query("SELECT * FROM quote_table")
     fun getFavoriteQuotes(): Flow<List<Quote>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addQuote(quote: Quote)
 
     @Delete
