@@ -14,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.soft.crownedjester.programmingquotesapp.presentation.quotes_list_screen.components.QuoteItemWithActions
@@ -26,6 +27,8 @@ fun QuotesScreen(
     modifier: Modifier = Modifier,
     quotesViewModel: QuotesViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     val state = quotesViewModel.state.value
     Log.d("QuotesScreen:: ", state.error)
     val revealedCardsIds = quotesViewModel.revealedQuotesIdsList.collectAsState()
@@ -52,8 +55,28 @@ fun QuotesScreen(
                     isRevealed = revealedCardsIds.value.contains(quote.id),
                     cardOffset = CARD_OFFSET.dp(),
                     count = count,
-                    onFavoriteBtnClick = { /*TODO*/ },
-                    onShare = { /*TODO*/ },
+                    onFavoriteBtnClick = {
+                        if (!quote.isFavorite)
+                            quotesViewModel.onEvent(
+                                event = QuotesEvent.AddQuoteToFavorite(
+                                    quote
+                                ),
+                                context = context
+                            ) else {
+                            quotesViewModel.onEvent(
+                                event = QuotesEvent.RemoveQuoteFromFavorite(
+                                    quote,
+                                ),
+                                context = context
+                            )
+                        }
+                    },
+                    onShare = {
+                        quotesViewModel.onEvent(
+                            QuotesEvent.ShareQuote(quote),
+                            context
+                        )
+                    },
                     onExpand = { quotesViewModel.onDraggableEvent(DraggableEvent.OnExpand(quote.id)) },
                     onCollapse = { quotesViewModel.onDraggableEvent(DraggableEvent.OnCollapse(quote.id)) }
                 )
