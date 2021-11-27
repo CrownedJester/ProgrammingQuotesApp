@@ -1,4 +1,4 @@
-package com.soft.crownedjester.programmingquotesapp.presentation.quotes_list_screen.components
+package com.soft.crownedjester.programmingquotesapp.presentation.common_components
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateColor
