@@ -2,7 +2,6 @@ package com.soft.crownedjester.programmingquotesapp.di
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.soft.crownedjester.programmingquotesapp.common.Constants
 import com.soft.crownedjester.programmingquotesapp.data.remote.IProgrammingQuotesApi
 import com.soft.crownedjester.programmingquotesapp.domain.repository.QuotesApiServicesRepository
@@ -59,7 +58,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideQuotesRepository(
-        api: QuotesApiServicesRepository
+        api: IProgrammingQuotesApi
     ): QuotesApiServicesRepository {
         return QuotesApiServicesRepositoryImpl(api)
     }
