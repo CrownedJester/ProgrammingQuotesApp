@@ -8,7 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.soft.crownedjester.programmingquotesapp.common.Resource
 import com.soft.crownedjester.programmingquotesapp.domain.use_case.QuoteUseCases
+import com.soft.crownedjester.programmingquotesapp.presentation.util.DraggableEvent
 import com.soft.crownedjester.programmingquotesapp.presentation.util.QuotesEvent
+import com.soft.crownedjester.programmingquotesapp.presentation.util.onItemCollapsed
+import com.soft.crownedjester.programmingquotesapp.presentation.util.onItemExpanded
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -77,17 +80,14 @@ class QuotesViewModel @Inject constructor(
         }
     }
 
-    fun onItemExpanded(cardId: String) {
-        if (_revealedQuotesIdsList.value.contains(cardId)) return
-        _revealedQuotesIdsList.value = _revealedQuotesIdsList.value.toMutableList().also { list ->
-            list.add(cardId)
+    fun onDraggableEvent(event: DraggableEvent) {
+        when (event) {
+            is DraggableEvent.OnExpand -> {
+                onItemExpanded(event.id, _revealedQuotesIdsList)
+            }
+            is DraggableEvent.OnCollapse ->
+                onItemCollapsed(event.id, _revealedQuotesIdsList)
         }
     }
 
-    fun onItemCollapsed(cardId: String) {
-        if (!_revealedQuotesIdsList.value.contains(cardId)) return
-        _revealedQuotesIdsList.value = _revealedQuotesIdsList.value.toMutableList().also { list ->
-            list.remove(cardId)
-        }
-    }
 }

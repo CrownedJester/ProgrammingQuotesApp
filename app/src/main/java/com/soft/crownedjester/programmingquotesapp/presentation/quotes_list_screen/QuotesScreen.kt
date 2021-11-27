@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.soft.crownedjester.programmingquotesapp.presentation.quotes_list_screen.components.QuoteItemWithActions
+import com.soft.crownedjester.programmingquotesapp.presentation.util.DraggableEvent
 import com.soft.crownedjester.programmingquotesapp.presentation.util.dp
 
 const val ACTION_ITEM_SIZE = 56
@@ -56,8 +57,8 @@ fun QuotesScreen(
                     count = count,
                     onFavoriteBtnClick = { /*TODO*/ },
                     onShare = { /*TODO*/ },
-                    onExpand = { quotesViewModel.onItemExpanded(quote.id) },
-                    onCollapse = { quotesViewModel.onItemCollapsed(quote.id) }
+                    onExpand = { quotesViewModel.onDraggableEvent(DraggableEvent.OnExpand(quote.id)) },
+                    onCollapse = { quotesViewModel.onDraggableEvent(DraggableEvent.OnCollapse(quote.id)) }
                 )
             }
         }
