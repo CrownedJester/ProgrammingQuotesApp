@@ -43,15 +43,18 @@ fun ActionsRow(
         IconToggleButton(
             modifier = Modifier
                 .size(actionIconSize),
-            checked = false,
+            checked = isFavorite,
             onCheckedChange = {
                 onFavoriteBtnClick()
             },
             content = {
                 Icon(
-                    painter = painterResource(
-                        id = R.drawable.ic_favorite
-                    ),
+                    painter = if (isFavorite)
+                        painterResource(
+                            id = R.drawable.ic_favorite_filled
+                        ) else {
+                        painterResource(id = R.drawable.ic_favorite)
+                    },
                     tint = if (isFavorite) Color.Red else iconTintColor,
                     contentDescription = "favorite action"
                 )
