@@ -11,7 +11,8 @@ data class Quote(
     val id: String,
     val quote: String,
     val author: String,
-    val color: Int = LightYellow.toArgb()
+    val color: Int = LightYellow.toArgb(),
+    var isFavorite: Boolean = false
 ) {
     companion object {
         val quoteColors = listOf(RedOrange, LightGreen, Violet, BabyBlue, RedPink, LightYellow)
