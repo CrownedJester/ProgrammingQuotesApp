@@ -4,7 +4,7 @@ import com.soft.crownedjester.programmingquotesapp.domain.model.Quote
 import com.soft.crownedjester.programmingquotesapp.features_quotes.repository.QuoteDatabaseRepository
 import javax.inject.Inject
 
-class AddQuoteToFavorite @Inject constructor(
+class AddQuoteToFavorite (
     private val dbRepository: QuoteDatabaseRepository
 ) {
 

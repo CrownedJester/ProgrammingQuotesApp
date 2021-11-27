@@ -37,14 +37,6 @@ fun DraggableQuoteCard(
     onCollapse: () -> Unit
 ) {
 
-//    val sendIntent = Intent().apply {
-//        action = Intent.ACTION_SEND
-//        putExtra(Intent.EXTRA_TEXT, "${quote.quote} \n\bby ${quote.author}")
-//        type = "text/plain"
-//    }
-//
-//    val shareIntent = Intent.createChooser(sendIntent, null)
-//    val context = LocalContext.current
 
     val transitionState = remember {
         MutableTransitionState(isRevealed).apply {

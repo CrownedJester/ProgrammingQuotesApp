@@ -18,7 +18,7 @@ class GetQuotes @Inject constructor(
         try {
             emit(Resource.Loading())
 
-            val quotes = repository.getQuotes().map{ quote ->
+            val quotes = repository.getQuotes().map { quote ->
                 quote.toQuote()
             }
 

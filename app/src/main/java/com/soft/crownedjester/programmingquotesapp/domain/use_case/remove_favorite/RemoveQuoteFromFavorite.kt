@@ -4,7 +4,7 @@ import com.soft.crownedjester.programmingquotesapp.domain.model.Quote
 import com.soft.crownedjester.programmingquotesapp.features_quotes.repository.QuoteDatabaseRepository
 import javax.inject.Inject
 
-class RemoveQuoteFromFavorite @Inject constructor(
+class RemoveQuoteFromFavorite (
     private val dbRepository: QuoteDatabaseRepository
 ) {
 

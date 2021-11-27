@@ -5,7 +5,7 @@ import com.soft.crownedjester.programmingquotesapp.features_quotes.repository.Qu
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetFavoriteQuotes @Inject constructor(
+class GetFavoriteQuotes (
     private val dbRepository: QuoteDatabaseRepository
 ) {
 
