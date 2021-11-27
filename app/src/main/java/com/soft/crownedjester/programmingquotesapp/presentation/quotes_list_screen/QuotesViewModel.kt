@@ -66,16 +66,21 @@ class QuotesViewModel @Inject constructor(
                 viewModelScope.launch {
                     useCases.addQuoteToFavorite(event.quote)
                 }
+                Log.i("QuotesViewModel:: ", "Successfully cached")
             }
+
             is QuotesEvent.RemoveQuoteFromFavorite -> {
                 viewModelScope.launch {
                     useCases.removeQuoteFromFavorite(event.quote)
                 }
+                Log.i("QuotesViewModel:: ", "Successfully unCached")
             }
+
             is QuotesEvent.ShareQuote -> {
                 viewModelScope.launch {
                     useCases.shareQuote(event.quote, context = context)
                 }
+                Log.i("QuotesViewModel:: ", "Successfully shared")
             }
         }
     }
