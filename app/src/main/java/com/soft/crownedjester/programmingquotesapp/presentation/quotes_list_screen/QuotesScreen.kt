@@ -17,11 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.soft.crownedjester.programmingquotesapp.presentation.quotes_list_screen.components.QuoteItemWithActions
-import com.soft.crownedjester.programmingquotesapp.presentation.util.DraggableEvent
-import com.soft.crownedjester.programmingquotesapp.presentation.util.dp
+import com.soft.crownedjester.programmingquotesapp.presentation.util.*
 
-const val ACTION_ITEM_SIZE = 56
-const val CARD_OFFSET = 208f
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable

@@ -3,6 +3,9 @@ package com.soft.crownedjester.programmingquotesapp.presentation.util
 import android.content.res.Resources
 import kotlinx.coroutines.flow.MutableStateFlow
 
+const val ACTION_ITEM_SIZE = 56
+const val CARD_OFFSET = 208f
+
 fun Float.dp(): Float = this * density * 0.5f
 
 val density: Float
