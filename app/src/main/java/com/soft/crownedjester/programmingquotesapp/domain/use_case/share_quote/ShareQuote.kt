@@ -9,7 +9,7 @@ class ShareQuote {
     suspend operator fun invoke(quote: Quote, context: Context) {
         val sendIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "${quote.quote} \n\t\t\t\tby ${quote.author}")
+            putExtra(Intent.EXTRA_TEXT, "${quote.quote} \nby ${quote.author}")
             type = "text/plain"
         }
 
