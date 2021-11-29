@@ -7,12 +7,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.soft.crownedjester.programmingquotesapp.common.Resource
+import com.soft.crownedjester.programmingquotesapp.domain.model.Quote
 import com.soft.crownedjester.programmingquotesapp.domain.use_case.QuoteUseCases
 import com.soft.crownedjester.programmingquotesapp.presentation.util.DraggableEvent
 import com.soft.crownedjester.programmingquotesapp.presentation.util.QuotesEvent
 import com.soft.crownedjester.programmingquotesapp.presentation.util.onItemCollapsed
 import com.soft.crownedjester.programmingquotesapp.presentation.util.onItemExpanded
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -24,6 +26,9 @@ import javax.inject.Inject
 class QuotesViewModel @Inject constructor(
     private val useCases: QuoteUseCases
 ) : ViewModel() {
+
+    private val _favoritesState = mutableStateOf(listOf<Quote>())
+    private var getFavoritesJob: Job? = null
 
     private val _state = mutableStateOf(QuotesState())
     val state: State<QuotesState> = _state
@@ -37,10 +42,14 @@ class QuotesViewModel @Inject constructor(
     }
 
     private fun getQuotes() {
+        getFavorites()
         useCases.getQuotes().onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _state.value = QuotesState(data = result.data)
+
+                    applyFavoritesToRemotes(_favoritesState.value, _state.value.data)
+
                     Log.d(
                         this@QuotesViewModel.javaClass.toString() + ":: ",
                         "Data successfully loaded"
@@ -58,6 +67,14 @@ class QuotesViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    private fun getFavorites() {
+        getFavoritesJob = useCases.getFavoriteQuotes()
+            .onEach { quotes ->
+                _favoritesState.value = quotes
+                Log.d("ViewModel:: ", _favoritesState.toString())
+            }.launchIn(viewModelScope)
     }
 
     fun onEvent(event: QuotesEvent, context: Context) {
@@ -95,4 +112,14 @@ class QuotesViewModel @Inject constructor(
         }
     }
 
+    private fun applyFavoritesToRemotes(cached: List<Quote>, remote: List<Quote>?) {
+        cached.onEach { cachedQuote ->
+            for (quote in remote!!) {
+                if (quote.id == cachedQuote.id) {
+                    quote.isFavorite = true
+                    break
+                }
+            }
+        }
+    }
 }

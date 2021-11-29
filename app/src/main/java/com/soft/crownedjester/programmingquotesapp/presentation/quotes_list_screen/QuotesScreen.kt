@@ -37,7 +37,7 @@ fun QuotesScreen(
             .fillMaxSize()
             .padding(start = 4.dp)
     ) {
-        Text(text = "Quotes:", style = MaterialTheme.typography.h4)
+        Text(text = Screen.QuotesScreen.title, style = MaterialTheme.typography.h4)
 
         Divider(modifier = Modifier.fillMaxWidth(), thickness = 1.dp)
 
