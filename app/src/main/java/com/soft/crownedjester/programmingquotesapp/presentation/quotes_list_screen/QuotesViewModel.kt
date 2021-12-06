@@ -51,7 +51,7 @@ class QuotesViewModel @Inject constructor(
                     applyFavoritesToRemotes(_favoritesState.value, _state.value.data)
 
                     Log.d(
-                        this@QuotesViewModel.javaClass.toString() + ":: ",
+                        "GetQuotes@QViewModeld: ",
                         "Data successfully loaded"
                     )
                 }
@@ -84,21 +84,21 @@ class QuotesViewModel @Inject constructor(
                 viewModelScope.launch {
                     useCases.addQuoteToFavorite(event.quote)
                 }
-                Log.i("QuotesViewModel:: ", "Successfully cached")
+                Log.i("AddQuote@QViewModel", "Successfully cached")
             }
 
             is QuotesEvent.RemoveQuoteFromFavorite -> {
                 viewModelScope.launch {
                     useCases.removeQuoteFromFavorite(event.quote)
                 }
-                Log.i("QuotesViewModel:: ", "Successfully unCached")
+                Log.i("RemoveQuote@QViewModel", "Successfully unCached")
             }
 
             is QuotesEvent.ShareQuote -> {
                 viewModelScope.launch {
                     useCases.shareQuote(event.quote, context = context)
                 }
-                Log.i("QuotesViewModel:: ", "Successfully shared")
+                Log.i("ShareQuote@QViewModel", "Successfully shared")
             }
         }
     }
@@ -144,5 +144,6 @@ class QuotesViewModel @Inject constructor(
                 }
             }
         }
+        Log.i("ApplyFavToRe@ViewModel", "Found $countCachedUsedOverall Quote(s) of total ${cached.size}")
     }
 }
