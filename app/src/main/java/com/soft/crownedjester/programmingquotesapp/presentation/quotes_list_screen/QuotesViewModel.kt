@@ -115,35 +115,34 @@ class QuotesViewModel @Inject constructor(
 
     private fun applyFavoritesToRemotes(cached: List<Quote>, remotes: List<Quote>?) {
 
-        remotes!!.let { }
-        //clear all favorites status if exists
-        if (cached.isNotEmpty()) {
-            remotes.map { quote ->
-                quote.isFavorite = false
-            }
+        if (remotes == null || remotes.isEmpty()) return
+
+        if (cached.isEmpty()) {
+            setRemoteDataToDefault(remotes)
+            return
         }
 
-        // using to count used cached to stop loop when all cached is already found
-        var countCachedUsedOverall = 0
-        for (remoteQuote in remotes) {
+        setRemoteDataToDefault(remotes)
 
-            //stop when all cached found
-            if (countCachedUsedOverall == cached.size) {
-                break
-            }
+        for (cachedQuote in cached) {
 
-            for (cachedQuote in cached) {
+            for (remoteQuote in remotes) {
+
                 if (remoteQuote.id == cachedQuote.id) {
                     remoteQuote.isFavorite = true
                     Log.i(
                         "ApplyFavtoRe@QViewModel",
                         "Quote with id  id=${remoteQuote.id} found in cached"
                     )
-                    countCachedUsedOverall++
                     break
                 }
             }
         }
-        Log.i("ApplyFavToRe@ViewModel", "Found $countCachedUsedOverall Quote(s) of total ${cached.size}")
+    }
+
+    private fun setRemoteDataToDefault(data: List<Quote>) {
+        data.map { quote ->
+            quote.isFavorite = false
+        }
     }
 }
