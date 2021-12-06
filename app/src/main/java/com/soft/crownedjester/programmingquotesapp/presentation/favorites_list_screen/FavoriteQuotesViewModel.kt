@@ -44,6 +44,8 @@ class FavoriteQuotesViewModel @Inject constructor(
             .onEach { quotes ->
                 _favoritesState.value = quotes
             }.launchIn(viewModelScope)
+
+        Log.i("getFav@FavQViewModel", "Favorite Data Successfully Loaded")
     }
 
     fun onEvent(event: QuotesEvent, context: Context) {
@@ -52,21 +54,21 @@ class FavoriteQuotesViewModel @Inject constructor(
                 viewModelScope.launch {
                     useCases.addQuoteToFavorite(event.quote)
                 }
-                Log.i("QuotesViewModel:: ", "Successfully cached")
+                Log.i("AddQ@FavQViewModel", "Successfully cached")
             }
 
             is QuotesEvent.RemoveQuoteFromFavorite -> {
                 viewModelScope.launch {
                     useCases.removeQuoteFromFavorite(event.quote)
                 }
-                Log.i("QuotesViewModel:: ", "Successfully unCached")
+                Log.i("RemoveQ@FavQViewModel", "Successfully unCached")
             }
 
             is QuotesEvent.ShareQuote -> {
                 viewModelScope.launch {
                     useCases.shareQuote(event.quote, context = context)
                 }
-                Log.i("QuotesViewModel:: ", "Successfully shared")
+                Log.i("ShareQ@FavQViewModel", "Successfully shared")
             }
         }
     }
