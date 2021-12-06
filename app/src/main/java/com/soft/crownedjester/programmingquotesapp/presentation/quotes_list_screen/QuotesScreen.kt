@@ -30,7 +30,7 @@ fun QuotesScreen(
     val context = LocalContext.current
 
     val state = quotesViewModel.state.value
-    Log.d("QuotesScreen:: ", state.error)
+    Log.e("QuotesScreen", state.error)
     val revealedCardsIds = quotesViewModel.revealedQuotesIdsList.collectAsState()
     Column(
         modifier = Modifier
