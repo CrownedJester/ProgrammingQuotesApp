@@ -8,7 +8,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.IconToggleButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Share
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -19,10 +19,15 @@ import com.soft.crownedjester.programmingquotesapp.R
 fun ActionsRow(
     modifier: Modifier = Modifier,
     actionIconSize: Dp,
-    isFavorite: Boolean = false,
+    isFavorite: Boolean,
     onShare: () -> Unit,
     onFavoriteBtnClick: () -> Unit
 ) {
+
+    var isFavoriteState by remember {
+        mutableStateOf(isFavorite)
+    }
+
     Row(
         modifier,
     ) {
@@ -43,19 +48,20 @@ fun ActionsRow(
         IconToggleButton(
             modifier = Modifier
                 .size(actionIconSize),
-            checked = isFavorite,
+            checked = isFavoriteState,
             onCheckedChange = {
+                isFavoriteState = !isFavoriteState
                 onFavoriteBtnClick()
             },
             content = {
                 Icon(
-                    painter = if (isFavorite)
+                    painter = if (isFavoriteState)
                         painterResource(
                             id = R.drawable.ic_favorite_filled
                         ) else {
                         painterResource(id = R.drawable.ic_favorite)
                     },
-                    tint = if (isFavorite) Color.Red else iconTintColor,
+                    tint = if (isFavoriteState) Color.Red else iconTintColor,
                     contentDescription = "favorite action"
                 )
             }
